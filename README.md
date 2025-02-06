@@ -184,6 +184,48 @@ SELECT * FROM worker WHERE department = 'Admin' ORDER BY salary DESC;
 
 SELECT * FROM worker WHERE department = 'Admin' ORDER BY salary LIMIT 1;
 
+
+
+
+
+SHOW DATABASES;
+
+USE practice1;
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+
+ALTER TABLE Persons
+ADD UNIQUE (ID);
+
+ALTER TABLE Persons
+ADD UNIQUE (LastName);
+
+ALTER TABLE Persons
+ADD UNIQUE (FirstName);
+
+ALTER TABLE Persons
+DROP CONSTRAINT LastName;
+
+ALTER TABLE Persons
+DROP CONSTRAINT FirstName;
+
+ALTER TABLE Persons
+ADD PRIMARY KEY (ID);
+
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+SELECT * FROM Persons;
+
+DESC Persons;
 SELECT department, COUNT(department) AS total_employees FROM worker
 where department = 'HR' OR department = 'Account' GROUP BY department;
 
