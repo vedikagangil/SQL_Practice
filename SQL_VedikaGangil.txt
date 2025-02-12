@@ -1,0 +1,494 @@
+show databases;
+
+create database VIT;
+
+drop database VIT;
+
+use VIT;
+
+create table CSE(
+s_id int,
+s_name varchar(30),
+s_mark int
+);
+
+show tables from VIT;
+
+drop table CSE;
+
+select * from CSE;
+
+insert into CSE values(10001, 'Vedika', 8);
+
+create database COLLEGE;
+
+use COLLEGE;
+create table STUDENT_DATA(
+std_id int,
+std_name varchar(30),
+std_cgpa int
+);
+
+show tables from COLLEGE;
+
+select * from STUDENT_DATA;
+
+insert into STUDENT_DATA
+values
+(10001, 'Vedika Gangil', 9),
+(10002, 'Asmita Sakhare', 9),
+(10003, 'Nihalika Kumari', 9),
+(10004, 'Rishav Raj', 8),
+(10005, 'Krishna Sahu', 7);
+
+alter table STUDENT_DATA add(
+std_age int);
+
+desc STUDENT_DATA;
+
+alter table STUDENT_DATA drop column std_age;
+
+alter table STUDENT_DATA add(
+s_country varchar(25) default 'India'
+);
+
+alter table STUDENT_DATA rename column
+s_country to std_country;
+
+delete from STUDENT_DATA where std_id=10004;
+
+update STUDENT_DATA set std_cgpa = 6 where std_id = 10005;
+
+update STUDENT_DATA set std_cgpa = std_cgpa + 1;
+
+select std_name from STUDENT_DATA;
+
+select std_name, std_cgpa from STUDENT_DATA;
+
+select std_name from STUDENT_DATA where std_cgpa = 10;
+
+
+
+
+CREATE DATABASE practice1;
+
+USE practice1;
+
+CREATE TABLE mech(s_id int, s_name varchar(25));
+
+START TRANSACTION;
+
+INSERT INTO mech VALUES(1001, 'Vedika');
+
+SAVEPOINT A;
+
+UPDATE mech SET s_id = 1002 WHERE s_id = 1001;
+
+SAVEPOINT B;
+
+INSERT INTO mech VALUES(1003, 'Asmita');
+
+SELECT * FROM mech;
+
+SAVEPOINT C;
+
+
+
+
+CREATE DATABASE ORG123;
+
+SHOW DATABASES;
+
+USE ORG123;
+
+CREATE TABLE Worker (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+
+INSERT INTO Worker 
+	(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+        
+SELECT * FROM worker WHERE salary BETWEEN 100000 AND 300000;
+
+SELECT * FROM worker WHERE salary > 100000 AND department = 'HR';
+
+SELECT * FROM worker WHERE salary > 200000;
+
+SELECT * FROM worker WHERE salary NOT BETWEEN 100000 AND 300000;
+
+SELECT * FROM worker WHERE salary BETWEEN 200000 AND 400000
+AND worker_id IN (1, 2, 3, 4, 5);
+
+SELECT MIN(salary) FROM worker WHERE department = 'HR';
+
+SELECT * FROM worker WHERE department = 'HR'
+AND salary = (SELECT MIN(salary) FROM worker where department = 'HR');
+
+SELECT * FROM worker;
+
+SELECT * FROM worker WHERE department = 'Admin' OR 'HR' OR 'Account'
+AND salary = (SELECT MAX(salary) FROM worker where department = 'Admin' OR 'HR' OR 'Account');
+
+SELECT * FROM Worker w
+WHERE SALARY = (
+    SELECT MAX(SALARY) 
+    FROM Worker 
+    WHERE DEPARTMENT = w.DEPARTMENT);
+
+SELECT * FROM Worker 
+WHERE DEPARTMENT = 'Account' 
+AND (SALARY = (SELECT MAX(SALARY) FROM Worker WHERE DEPARTMENT = 'Account') 
+OR SALARY = (SELECT MIN(SALARY) FROM Worker WHERE DEPARTMENT = 'Account'));
+
+USE org123;
+
+SELECT * FROM worker;
+
+SELECT DISTINCT(department) FROM worker;
+
+SELECT worker_id AS emp_code FROM worker;
+
+SELECT department, worker_id FROM worker WHERE department = 'HR'
+UNION
+SELECT department, worker_id FROM worker WHERE department = 'Account';
+
+SELECT worker_id, first_name, department,
+CASE
+    WHEN salary > 300000 THEN 'Upper class'
+    WHEN salary <=300000 && salary >=100000 THEN 'Middle class'
+    ELSE 'Lower class'
+END 
+AS People_stage_wise
+FROM worker;
+
+SELECT * FROM worker WHERE department = 'Admin' ORDER BY salary;
+
+SELECT * FROM worker WHERE department = 'Admin' ORDER BY salary DESC;
+
+SELECT * FROM worker WHERE department = 'Admin' ORDER BY salary LIMIT 1;
+
+SELECT department, COUNT(department) AS total_employees FROM worker
+where department = 'HR' OR department = 'Account' GROUP BY department;
+
+SELECT department, COUNT(department) AS total_employees FROM worker
+GROUP BY department
+ORDER BY total_employees DESC LIMIT 2;
+
+
+
+SHOW DATABASES;
+
+USE practice1;
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+
+ALTER TABLE Persons
+ADD UNIQUE (ID);
+
+ALTER TABLE Persons
+ADD UNIQUE (LastName);
+
+ALTER TABLE Persons
+ADD UNIQUE (FirstName);
+
+ALTER TABLE Persons
+DROP CONSTRAINT LastName;
+
+ALTER TABLE Persons
+DROP CONSTRAINT FirstName;
+
+ALTER TABLE Persons
+ADD PRIMARY KEY (ID);
+
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+SELECT * FROM Persons;
+
+DESC Persons;
+
+
+
+
+
+SHOW DATABASES;
+
+USE org123;
+
+create table category(
+c_id int primary key,
+c_name varchar(25) not null unique,
+c_decrp varchar(250) not null
+);
+
+insert into category values (102, 'furnitures', 'it stores all set of wooden items');
+
+select * from category;
+
+desc category;
+
+CREATE TABLE Products (
+    P_ID int primary key,
+    p_Name varchar(250) NOT NULL,
+    c_id int ,
+    CONSTRAINT c_id FOREIGN KEY (c_id)
+    REFERENCES category(c_id)
+);
+show tables from org123;
+desc products;
+
+drop table products;
+
+insert into products values (904, 'Wooden table', null);
+select * from products;
+
+
+select * from category;
+
+delete from category where c_id=101;
+
+drop table category;
+
+
+USE org123;
+
+CREATE TABLE Student (
+    sno INT PRIMARY KEY,
+    sname VARCHAR(20),
+    age INT
+);
+
+INSERT INTO Student(sno, sname,age) 
+ VALUES(1,'Ankit',17),
+       (2,'Ramya',18),
+       (3,'Ram',16);
+       
+SELECT * FROM Student;
+
+CREATE TABLE Course (
+    cno INT PRIMARY KEY,
+    cname VARCHAR(20)
+);
+
+INSERT INTO Course(cno, cname) 
+ VALUES(101,'c'),
+       (102,'c++'),
+       (103,'DBMS');
+       
+SELECT * FROM Course;
+
+CREATE TABLE Enroll (
+    sno INT,
+    cno INT,
+    jdate date,
+    PRIMARY KEY(sno,cno),
+    FOREIGN KEY(sno) 
+	REFERENCES Student(sno)
+	ON DELETE CASCADE,
+    FOREIGN KEY(cno) 
+	REFERENCES Course(cno)
+	ON DELETE CASCADE
+);
+
+INSERT INTO Enroll(sno,cno,jdate) 
+ VALUES(1, 101, '2021-06-05'),
+       (1, 102, '2021-06-05'),
+       (2, 103, '2021-06-060');
+       
+SELECT * FROM Enroll;
+
+DELETE FROM Student WHERE sname="Ramya";
+
+Select * from Student;
+
+Select * from Enroll;
+
+
+
+
+create database saturday;
+
+use saturday;
+
+create table category(
+c_id int primary key,
+c_name varchar(25) not null unique,
+c_decrp varchar(250) not null
+);
+
+insert into category values (101, 'electronics', 'it stores all set of electronics items');
+
+select * from category;
+
+desc category;
+
+CREATE TABLE Products (
+    P_ID int primary key,
+    p_Name varchar(250) NOT NULL,
+    c_id int ,
+    CONSTRAINT c_id FOREIGN KEY (c_id)
+    REFERENCES category(c_id) on delete cascade
+);
+
+insert into products values (904, 'INTEL I5 Processor', 101);
+
+select * from products;
+
+delete from category where c_id=101;
+
+select * from category;
+
+create table college(
+c_id int primary key,
+c_name varchar(25) not null unique,
+c_decrp varchar(250) not null
+);
+
+insert into college values (101, 'NIT', 'Bhopal'), (102, 'VIT', 'Chennai');
+
+CREATE TABLE Department (
+    d_id INT PRIMARY KEY,
+    department_name VARCHAR(100),
+    c_id INT,
+    FOREIGN KEY (c_id) REFERENCES College(c_id) ON DELETE CASCADE
+);
+
+insert into department values (110, 'Mechanical', '101'), (111, 'Aerospace', '102');
+
+CREATE TABLE Student (
+    s_id INT PRIMARY KEY,
+    student_name VARCHAR(100),
+    c_id INT,
+    d_id INT,
+    FOREIGN KEY (c_id) REFERENCES College(c_id),
+    FOREIGN KEY (d_id) REFERENCES Department(d_id) 
+);
+
+insert into student values (210, 'Megha', '110'), (211, 'Arun', '111');
+
+USE org123;
+
+SELECT * FROM worker;
+
+SELECT * FROM worker WHERE first_name LIKE '_i_a%';
+
+CREATE TABLE Bonus (
+	WORKER_REF_ID INT,
+	BONUS_AMOUNT INT(10),
+	BONUS_DATE DATETIME,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Bonus 
+	(WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+		(001, 5000, '16/02/20'),
+		(002, 3000, '16-06/11'),
+		(003, 4000, '16-02-20'),
+		(001, 4500, '16-02-20'),
+        (002, 3500, '16-02-20');
+        
+        
+        
+use org123;
+
+create table vitBhopal (id int primary key, name varchar(20) not null,
+department varchar(25) not null);
+
+insert into vitbhopal values (104,'Karthik','cs'),(103,'Arun','cs');
+
+create table vit (id int primary key, name varchar(20) not null,
+college varchar(25) not null);
+insert into vit values (104,'Karthik','chennai'),(103,'Arun','bhopal');
+select * from vit;
+
+select * from vitbhopal;
+
+select name as WinnerOfTheYear from vitbhopal
+where id = (select id from vit where college='bhopal');
+
+
+
+
+CREATE DATABASE MongoDB;
+
+USE MongoDB;
+
+CREATE TABLE Worker (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+
+INSERT INTO Worker 
+	(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+
+CREATE TABLE Bonus (
+	WORKER_REF_ID INT,
+	BONUS_AMOUNT INT(10),
+	BONUS_DATE DATETIME,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Bonus 
+	(WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+		(001, 5000, '16-02-20'),
+		(002, 3000, '16-06-11'),
+		(003, 4000, '16-02-20'),
+		(001, 4500, '16-02-20'),
+		(002, 3500, '16-06-11');
+        
+CREATE TABLE Title (
+	WORKER_REF_ID INT,
+	WORKER_TITLE CHAR(25),
+	AFFECTED_FROM DATETIME,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Title 
+	(WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+ (001, 'Manager', '2016-02-20 00:00:00'),
+ (002, 'Executive', '2016-06-11 00:00:00'),
+ (008, 'Executive', '2016-06-11 00:00:00'),
+ (005, 'Manager', '2016-06-11 00:00:00'),
+ (004, 'Asst. Manager', '2016-06-11 00:00:00'),
+ (007, 'Executive', '2016-06-11 00:00:00'),
+ (006, 'Lead', '2016-06-11 00:00:00'),
+ (003, 'Lead', '2016-06-11 00:00:00');
