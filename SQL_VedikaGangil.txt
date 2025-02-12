@@ -70,6 +70,26 @@ select std_name from STUDENT_DATA where std_cgpa = 10;
 
 
 
+
+CREATE TABLE Student(
+    student_id INT, 
+    name VARCHAR(100), 
+    age INT);
+CREATE TABLE Test.Student(
+    student_id INT, 
+    name VARCHAR(100), 
+    age INT);
+
+ALTER TABLE student ADD(
+    father_name VARCHAR(60), 
+    mother_name VARCHAR(60), 
+    dob DATE);
+
+TRUNCATE TABLE student;
+
+
+
+
 CREATE DATABASE practice1;
 
 USE practice1;
@@ -91,6 +111,24 @@ INSERT INTO mech VALUES(1003, 'Asmita');
 SELECT * FROM mech;
 
 SAVEPOINT C;
+
+
+
+INSERT INTO  `movies` (`title`, `director`, `year_released`, `category_id`) VALUES ('The Great Dictator', 'Chalie Chaplie', 1920, 7);
+INSERT INTO `movies` (`title`, `director`, `category_id`) VALUES ('sample movie', 'Anonymous', 8);
+INSERT INTO  movies (`title`, `director`, `year_released`, `category_id`) VALUES ('movie 3', 'John Brown', 1920, 8);
+
+SELECT * FROM `movies`;
+
+DELETE FROM `movies` WHERE `movie_id` = 18;
+
+SELECT * FROM `movies` WHERE `category_id` = 2 AND `year_released` = 2008;
+
+SELECT * FROM `movies` WHERE `category_id` = 1 OR `category_id` = 2;
+
+SELECT * FROM `members` WHERE `membership_number` IN (1,2,3);
+
+
 
 
 
