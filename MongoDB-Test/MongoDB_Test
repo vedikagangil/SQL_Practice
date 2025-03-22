@@ -1,0 +1,49 @@
+Answer 01:
+db.sales.find({ item: "Mochas" });
+
+Answer 02:
+db.sales.find({ price: { $lt: 15 } });
+
+Answer 03:
+db.sales.find({ $or: [{ price: { $lt: 10 } }, { price: { $gt: 20 } }] });
+
+Answer 04:
+db.sales.find({ quantity: { $exists: true } });
+
+Answer 05:
+db.products.find({ color: "white" });
+
+Answer 06:
+db.products.updateOne(
+    { name: "xTablet" },
+    { $set: { "spec.ram": 24 } }
+);
+
+Answer 07:
+db.products.find({}, { spec: 1, _id: 0 });
+
+Answer 08:
+db.products.find().sort({ price: -1 });
+
+Answer 09:
+db.products.updateOne({ "name": "xTablet" }, { $set: { "ram": 24 } });
+
+Answer 10:
+db.products.find({ name: { $regex: "^S" }, price: { $lt: 700 } });
+
+Answer 11:
+db.products.aggregate([
+    { $group: { _id: null, totalPrice: { $sum: "$price" } } }
+]);
+
+Answer 12:
+db.sales.find().sort({ price: -1 }).skip(2).limit(1);
+
+Answer 13:
+
+
+Answer 14:
+db.products.find({}, { totalPrice: "$price" });
+
+Answer 15:
+db.sales.find().group({ _id: "$item", totalQuantity: { $sum: "$quantity" } });
